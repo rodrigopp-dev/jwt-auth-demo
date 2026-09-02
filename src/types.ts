@@ -15,6 +15,30 @@ export interface AuthResponse {
     name: string
     description?: string
   }
+
+  type Status = 'TODO' | 'IN_PROGRESS' | 'DONE';
+  export type Priority = 'LOW' | 'MED' | 'HIGH';
+
+  export interface Task {
+    id: number
+    title: string
+    description?: string
+    status: Status
+    priority: Priority
+    projectId: number
+    assigneeId: number
+    dueDate: string
+  }
+  
+  export interface NewTask {
+    projectId: number
+    title: string
+    description: string
+    status: string
+    priority: string
+    assigneeId: number
+    dueDate: string
+  }
   
   export const API_URL =
     import.meta.env.VITE_API_URL ||
