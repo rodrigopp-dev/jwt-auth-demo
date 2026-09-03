@@ -58,6 +58,7 @@ export function TaskForm({
         label="Descripción"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
+        required
         fullWidth
         multiline
         rows={2}
@@ -67,6 +68,7 @@ export function TaskForm({
         label="Prioridad"
         value={priority}
         onChange={(e) => setPriority(e.target.value)}
+        required
         fullWidth
       >
         <MenuItem value="LOW">Baja</MenuItem>
@@ -78,6 +80,7 @@ export function TaskForm({
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
+        required
         fullWidth
         slotProps={{
           inputLabel: {
