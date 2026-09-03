@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams  } from 'react-router-dom'
 import { TaskForm } from '../components/TaskForm'
 import { TaskList } from '../components/TaskList'
 import { useAuth } from '../hooks/useAuth'
@@ -14,7 +14,9 @@ import { useTasks } from '../hooks/useTasks'
 export function TasksPage() {
   const { logout } = useAuth()
   const navigate = useNavigate()
-  const { tasks, loading, error, refetch } = useTasks()
+  const { id: projectId } = useParams();
+  const numericProjectId = Number(projectId);
+  const { tasks, loading, error, refetch } = useTasks(numericProjectId)
   const taskForm = useTaskForm({ onSuccess: refetch })
   
 

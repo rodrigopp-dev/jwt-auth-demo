@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getTasks } from '../services/taskService'
+import { getTasks, getTasksByProject } from '../services/taskService'
 import type { Task } from '../types'
 
 interface UseTasksResult {
@@ -9,7 +9,7 @@ interface UseTasksResult {
   refetch: () => void
 }
 
-export function useTasks(): UseTasksResult {
+export function useTasks(projectId: number): UseTasksResult {
   const [tasks, setTasks] = useState<Task[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -24,7 +24,7 @@ export function useTasks(): UseTasksResult {
     setLoading(true)
     setError(null)
 
-    getTasks()
+    getTasksByProject(projectId)
       .then((data) => {
         if (!cancelled) setTasks(data)
       })
