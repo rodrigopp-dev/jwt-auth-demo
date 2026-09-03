@@ -8,6 +8,7 @@ interface UseTaskFormOptions {
 
 const getLocalTodayDate = () => {
   const d = new Date();
+  d.setDate(d.getDate() + 1);
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
@@ -15,16 +16,11 @@ const getLocalTodayDate = () => {
 };
 
 export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) {
-  //const [name, setName] = useState('')
-  //const [description, setDescription] = useState('')
-
-  const [projectId, setProjectId] = useState(1)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [status, setStatus] = useState('')
-  const [priority, setPriority] = useState('')
+  const [priority, setPriority] = useState('MED')
   const [assigneeId, setAssigneeId] = useState(1)
-  //const [dueDate, setDueDate] = useState('')
   const [dueDate, setDueDate] = useState(getLocalTodayDate());
 
   const [submitting, setSubmitting] = useState(false)
@@ -33,7 +29,6 @@ export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) 
   const valid = title.trim().length >= 3
 
   function reset() {
-    setProjectId(0)
     setTitle('')
     setDescription('')
     setStatus('')
@@ -68,8 +63,6 @@ export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) 
   }
 
   return {
-    projectId,
-    setProjectId,
     title,
     setTitle,
     description,
