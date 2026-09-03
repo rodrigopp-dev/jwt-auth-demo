@@ -1,22 +1,23 @@
 import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
 import type { Task } from '../types'
+import { TaskItem } from './TaskItem'
 
 interface TaskListProps {
   tasks: Task[]
   loading: boolean
   error: string | null
+  onChanged: () => void
 }
 
-export function TaskList({ tasks, loading, error }: TaskListProps) {
+export function TaskList({
+  tasks,
+  loading,
+  error,
+  onChanged,
+}: TaskListProps) {
   if (loading) {
     return (
       <Stack alignItems="center" py={4}>
@@ -34,34 +35,18 @@ export function TaskList({ tasks, loading, error }: TaskListProps) {
   }
 
   return (
-    <>
-      <Typography variant="subtitle1" gutterBottom>
+    <Stack spacing={2}>
+      <Typography variant="subtitle1">
         Tareas ({tasks.length})
       </Typography>
-      <List>
-        {tasks.map((task) => (
-          <ListItem key={task.id} divider>
-            <ListItemText
-              primary={task.title}
-              secondary={task.description || `ID ${task.id}`}
-            />
-             <Button
-              size="small"
-              startIcon={<EditIcon />}
-            >
-              Editar
-            </Button>
 
-            <Button
-              size="small"
-              color="error"
-              startIcon={<DeleteIcon />}
-            >
-              Eliminar
-            </Button>
-          </ListItem>
-        ))}
-      </List>
-    </>
+      {tasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={task}
+          onChanged={onChanged}
+        />
+      ))}
+    </Stack>
   )
 }

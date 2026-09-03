@@ -46,7 +46,7 @@ export function TasksPage() {
       </Paper>
 
       <Paper sx={{ p: 3 }}>
-        <TaskList tasks={tasks} loading={loading} error={error} />
+        <TaskList tasks={tasks} loading={loading} error={error} onChanged={refetch}/>
       </Paper>
     </Box>
   )

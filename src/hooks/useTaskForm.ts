@@ -6,6 +6,14 @@ interface UseTaskFormOptions {
   onSuccess?: () => void
 }
 
+const getLocalTodayDate = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) {
   //const [name, setName] = useState('')
   //const [description, setDescription] = useState('')
@@ -16,7 +24,8 @@ export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) 
   const [status, setStatus] = useState('')
   const [priority, setPriority] = useState('')
   const [assigneeId, setAssigneeId] = useState(1)
-  const [dueDate, setDueDate] = useState('')
+  //const [dueDate, setDueDate] = useState('')
+  const [dueDate, setDueDate] = useState(getLocalTodayDate());
 
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -43,10 +52,8 @@ export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) 
 
     try {
       await createTask(id, {
-        projectId: projectId,
         title: title.trim(),
         description: description.trim(),
-        status: status.trim(),
         priority: priority.trim(),
         assigneeId: assigneeId,
         dueDate: dueDate.trim()

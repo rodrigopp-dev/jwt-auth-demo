@@ -1,5 +1,5 @@
 import { httpClient } from './httpClient'
-import type { NewTask, Task } from '../types'
+import type { NewTask, Task, UpdateTask } from '../types'
 
 export async function getTasks(): Promise<Task[]> {
   const { data } = await httpClient.get<Task[]>('/tasks')
@@ -17,8 +17,11 @@ export async function getTasksByProject(projectId: number): Promise<Task[]> {
   return data;
 }
 
-export async function deleteTasksById(id: number): Promise<Task[]> {
-  const { data } = await httpClient.delete<Task[]>(`/tasks/${id}`);
+export async function updateTask(id: number, body: UpdateTask): Promise<Task> {
+  const { data } = await httpClient.put<Task>(`/tasks/${id}`, body)
+  return data
+}
 
-  return data;
+export async function deleteTask(id: number): Promise<void> {
+  await httpClient.delete(`/tasks/${id}`);
 }

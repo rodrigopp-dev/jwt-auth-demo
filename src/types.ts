@@ -33,14 +33,14 @@ export interface AuthResponse {
   }
   
   export interface NewTask {
-    projectId: number
     title: string
-    description: string
-    status: string
+    description?: string
     priority: string
     assigneeId: number
     dueDate: string
   }
+
+  export type UpdateTask = NewTask
   
   export const API_URL =
     import.meta.env.VITE_API_URL ||
