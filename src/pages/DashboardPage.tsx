@@ -23,16 +23,22 @@ export function DashboardPage() {
   }
 
   return (
-    <Box maxWidth={640} mx="auto" mt={6}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
+    <Box maxWidth={720} mx="auto" mt={6} px={2}>
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={3}
+      >
         <Box>
           <Typography variant="h4" gutterBottom>
             Dashboard
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Fase 4 — formulario + lista conectados.
+            Fase 5 — crear, listar, editar y eliminar proyectos.
           </Typography>
         </Box>
+
         <Button startIcon={<LogoutIcon />} onClick={handleLogout}>
           Cerrar sesión
         </Button>
@@ -43,7 +49,12 @@ export function DashboardPage() {
       </Paper>
 
       <Paper sx={{ p: 3 }}>
-        <ProjectList projects={projects} loading={loading} error={error} />
+        <ProjectList
+          projects={projects}
+          loading={loading}
+          error={error}
+          onChanged={refetch}
+        />
       </Paper>
     </Box>
   )

@@ -5,6 +5,9 @@ import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import type { Task } from '../types'
 
 interface TaskListProps {
@@ -42,6 +45,20 @@ export function TaskList({ tasks, loading, error }: TaskListProps) {
               primary={task.title}
               secondary={task.description || `ID ${task.id}`}
             />
+             <Button
+              size="small"
+              startIcon={<EditIcon />}
+            >
+              Editar
+            </Button>
+
+            <Button
+              size="small"
+              color="error"
+              startIcon={<DeleteIcon />}
+            >
+              Eliminar
+            </Button>
           </ListItem>
         ))}
       </List>

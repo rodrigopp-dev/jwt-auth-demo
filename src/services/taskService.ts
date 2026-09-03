@@ -16,3 +16,9 @@ export async function getTasksByProject(projectId: number): Promise<Task[]> {
 
   return data;
 }
+
+export async function deleteTasksById(id: number): Promise<Task[]> {
+  const { data } = await httpClient.delete<Task[]>(`/tasks/${id}`);
+
+  return data;
+}

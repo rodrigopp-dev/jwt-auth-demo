@@ -16,6 +16,8 @@ export interface AuthResponse {
     description?: string
   }
 
+  export type UpdateProject = NewProject
+
   type Status = 'TODO' | 'IN_PROGRESS' | 'DONE';
   export type Priority = 'LOW' | 'MED' | 'HIGH';
 

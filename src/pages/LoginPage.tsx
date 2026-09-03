@@ -13,8 +13,8 @@ import { API_URL } from '../types'
 export function LoginPage() {
   const { login } = useAuth()
   const navigate = useNavigate()
-  const [username, setUsername] = useState('ana')
-  const [password, setPassword] = useState('ana123')
+  const [username, setUsername] = useState('admin')
+  const [password, setPassword] = useState('admin123')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
