@@ -1,10 +1,11 @@
 import LogoutIcon from '@mui/icons-material/Logout'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { useNavigate, useParams  } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { TaskForm } from '../components/TaskForm'
 import { TaskList } from '../components/TaskList'
 import { useAuth } from '../hooks/useAuth'
@@ -18,7 +19,7 @@ export function TasksPage() {
   const numericProjectId = Number(projectId);
   const { tasks, loading, error, refetch } = useTasks(numericProjectId)
   const taskForm = useTaskForm(numericProjectId, { onSuccess: refetch })
-  
+
 
   function handleLogout() {
     logout()
@@ -36,9 +37,14 @@ export function TasksPage() {
             Fase 4 — formulario + lista conectados.
           </Typography>
         </Box>
-        <Button startIcon={<LogoutIcon />} onClick={handleLogout}>
-          Cerrar sesión
-        </Button>
+        <Stack direction="column" spacing={1} alignItems="flex-end">
+          <Button startIcon={<LogoutIcon />} onClick={handleLogout}>
+            Cerrar sesión
+          </Button>
+          <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)}>
+            Regresar
+          </Button>
+        </Stack>
       </Stack>
 
       <Paper sx={{ p: 3, mb: 3 }}>
@@ -46,7 +52,7 @@ export function TasksPage() {
       </Paper>
 
       <Paper sx={{ p: 3 }}>
-        <TaskList tasks={tasks} loading={loading} error={error} onChanged={refetch}/>
+        <TaskList tasks={tasks} loading={loading} error={error} onChanged={refetch} />
       </Paper>
     </Box>
   )
