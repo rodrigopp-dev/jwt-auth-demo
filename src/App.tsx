@@ -22,7 +22,7 @@ export default function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
             </Route>
             <Route element={<ProtectedRoute />}>
-              <Route path="/tasks" element={<TasksPage />} />
+              <Route path="/projects/:id" element={<TasksPage />} />
             </Route>
             <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
