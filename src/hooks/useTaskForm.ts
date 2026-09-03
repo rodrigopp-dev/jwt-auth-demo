@@ -32,9 +32,9 @@ export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) 
     setTitle('')
     setDescription('')
     setStatus('')
-    setPriority('')
-    setAssigneeId(0)
-    setDueDate('')
+    setPriority('MED')
+    setAssigneeId(1)
+    setDueDate(getLocalTodayDate())
     setError(null)
   }
 
