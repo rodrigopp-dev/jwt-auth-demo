@@ -1,8 +1,9 @@
 import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import { Link as RouterLink } from 'react-router-dom'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { Project } from '../types'
@@ -35,15 +36,23 @@ export function ProjectList({ projects, loading, error }: ProjectListProps) {
       <Typography variant="subtitle1" gutterBottom>
         Proyectos ({projects.length})
       </Typography>
+      
       <List>
-        {projects.map((project) => (
-          <ListItem key={project.id} divider>
-            <ListItemText
-              primary={project.name}
-              secondary={project.description || `ID ${project.id}`}
-            />
-          </ListItem>
-        ))}
+      {projects.map((project) => (
+        <Card
+          key={project.id}
+          component={RouterLink}
+          to={`/projects/${project.id}`}
+          sx={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <CardContent>
+            <Typography variant="subtitle1">{project.name}</Typography>
+            <Typography variant="body2" color="text.secondary">
+              {project.description ?? 'Sin descripción'}
+            </Typography>
+          </CardContent>
+        </Card>
+      ))}
       </List>
     </>
   )
