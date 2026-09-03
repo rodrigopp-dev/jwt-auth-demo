@@ -6,7 +6,7 @@ interface UseTaskFormOptions {
   onSuccess?: () => void
 }
 
-export function useTaskForm({ onSuccess }: UseTaskFormOptions = {}) {
+export function useTaskForm(id: number, { onSuccess }: UseTaskFormOptions = {}) {
   //const [name, setName] = useState('')
   //const [description, setDescription] = useState('')
 
@@ -42,7 +42,7 @@ export function useTaskForm({ onSuccess }: UseTaskFormOptions = {}) {
     setError(null)
 
     try {
-      await createTask(projectId, {
+      await createTask(id, {
         projectId: projectId,
         title: title.trim(),
         description: description.trim(),

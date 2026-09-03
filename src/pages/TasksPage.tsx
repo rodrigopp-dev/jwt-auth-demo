@@ -17,7 +17,7 @@ export function TasksPage() {
   const { id: projectId } = useParams();
   const numericProjectId = Number(projectId);
   const { tasks, loading, error, refetch } = useTasks(numericProjectId)
-  const taskForm = useTaskForm({ onSuccess: refetch })
+  const taskForm = useTaskForm(numericProjectId, { onSuccess: refetch })
   
 
   function handleLogout() {
