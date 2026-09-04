@@ -6,7 +6,7 @@ import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
-import TextField from '@mui/material/TextField'
+import { TextField, MenuItem } from '@mui/material';
 import Typography from '@mui/material/Typography'
 import { useTaskActions } from '../hooks/useTaskActions'
 import type { Task } from '../types'
@@ -62,6 +62,38 @@ export function TaskItem({ task, onChanged }: TaskItemProps) {
             fullWidth
             multiline
             rows={2}
+          />
+          <TextField
+            select
+            label="Prioridad"
+            value={actions.priority}
+            onChange={(event) => actions.setPriority(event.target.value as "LOW" | "MED" | "HIGH")}
+            required
+            fullWidth
+          >
+            <MenuItem value="LOW">Baja</MenuItem>
+            <MenuItem value="MED">Media</MenuItem>
+            <MenuItem value="HIGH">Alta</MenuItem>
+          </TextField>
+          <TextField
+            label="Fecha límite"
+            type="date"
+            value={actions.dueDate}
+            onChange={(event) => actions.setDueDate(event.target.value)}
+            required
+            fullWidth
+            slotProps={{
+              inputLabel: {
+                shrink: true,
+              },
+            }}
+          />
+          <TextField
+            label="Asignado (ID de usuario)"
+            value={actions.assigneeId}
+            onChange={(event) => actions.setAssigneeId(Number(event.target.value))}
+            required
+            fullWidth
           />
 
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1}>
