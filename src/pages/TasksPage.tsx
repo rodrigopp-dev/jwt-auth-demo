@@ -33,9 +33,6 @@ export function TasksPage() {
           <Typography variant="h4" gutterBottom>
             Tasks
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Fase 4 — formulario + lista conectados.
-          </Typography>
         </Box>
         <Stack direction="column" spacing={1} alignItems="flex-end">
           <Button startIcon={<LogoutIcon />} onClick={handleLogout}>

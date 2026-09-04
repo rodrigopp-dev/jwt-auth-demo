@@ -34,9 +34,6 @@ export function DashboardPage() {
           <Typography variant="h4" gutterBottom>
             Dashboard
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Fase 5 — crear, listar, editar y eliminar proyectos.
-          </Typography>
         </Box>
 
         <Button startIcon={<LogoutIcon />} onClick={handleLogout}>
