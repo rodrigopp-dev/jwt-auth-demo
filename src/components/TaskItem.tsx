@@ -3,13 +3,21 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
 import Alert from '@mui/material/Alert'
-import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import { TextField, MenuItem } from '@mui/material';
 import Typography from '@mui/material/Typography'
 import { useTaskActions } from '../hooks/useTaskActions'
 import type { Task } from '../types'
+import { useState } from 'react';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button
+} from '@mui/material';
 
 interface TaskItemProps {
   task: Task
@@ -22,15 +30,15 @@ export function TaskItem({ task, onChanged }: TaskItemProps) {
     onSuccess: onChanged,
   })
 
-  function confirmDelete() {
-    const confirmed = window.confirm(
-      `¿Eliminar el tarea "${task.title}"?`,
-    )
+  const [open, setOpen] = useState(false);
 
-    if (confirmed) {
-      void actions.handleDelete()
-    }
-  }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleConfirmDelete = () => {
+    void actions.handleDelete();
+    setOpen(false);
+  };
 
   if (actions.editing) {
     return (
@@ -158,11 +166,35 @@ export function TaskItem({ task, onChanged }: TaskItemProps) {
               size="small"
               color="error"
               startIcon={<DeleteIcon />}
-              onClick={confirmDelete}
+              onClick={handleOpen}
               disabled={actions.busy}
             >
               {actions.deleting ? 'Eliminando…' : 'Eliminar'}
             </Button>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="confirm-dialog-title"
+            >
+              <DialogTitle id="confirm-dialog-title">
+                Confirmar eliminación
+              </DialogTitle>
+
+              <DialogContent>
+                <DialogContentText>
+                  ¿Eliminar la tarea "{task.title}"?
+                </DialogContentText>
+              </DialogContent>
+
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancelar
+                </Button>
+                <Button onClick={handleConfirmDelete} color="error" autoFocus>
+                  Eliminar
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Stack>
         </Stack>
       </Stack>

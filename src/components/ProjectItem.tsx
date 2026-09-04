@@ -3,7 +3,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import SaveIcon from '@mui/icons-material/Save'
 import Alert from '@mui/material/Alert'
-import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
@@ -11,6 +10,15 @@ import Typography from '@mui/material/Typography'
 import { useProjectActions } from '../hooks/useProjectActions'
 import { useNavigate } from 'react-router-dom';
 import type { Project } from '../types'
+import { useState } from 'react';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button
+} from '@mui/material';
 
 interface ProjectItemProps {
   project: Project
@@ -18,21 +26,20 @@ interface ProjectItemProps {
 }
 
 export function ProjectItem({ project, onChanged }: ProjectItemProps) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const actions = useProjectActions({
     project,
     onSuccess: onChanged,
   })
 
-  function confirmDelete() {
-    const confirmed = window.confirm(
-      `¿Eliminar el proyecto "${project.name}"? También se eliminarán sus tareas.`,
-    )
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-    if (confirmed) {
-      void actions.handleDelete()
-    }
-  }
+  const handleConfirmDelete = () => {
+    void actions.handleDelete();
+    setOpen(false);
+  };
 
   if (actions.editing) {
     return (
@@ -125,11 +132,35 @@ export function ProjectItem({ project, onChanged }: ProjectItemProps) {
               size="small"
               color="error"
               startIcon={<DeleteIcon />}
-              onClick={confirmDelete}
+              onClick={handleOpen}
               disabled={actions.busy}
             >
               {actions.deleting ? 'Eliminando…' : 'Eliminar'}
             </Button>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="confirm-dialog-title"
+            >
+              <DialogTitle id="confirm-dialog-title">
+                Confirmar eliminación
+              </DialogTitle>
+
+              <DialogContent>
+                <DialogContentText>
+                  ¿Eliminar el proyecto "{project.name}"? También se eliminarán sus tareas.
+                </DialogContentText>
+              </DialogContent>
+
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                  Cancelar
+                </Button>
+                <Button onClick={handleConfirmDelete} color="error" autoFocus>
+                  Eliminar
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Stack>
         </Stack>
       </Stack>
