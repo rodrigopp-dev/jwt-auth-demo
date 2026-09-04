@@ -63,6 +63,7 @@ src/
     ├── httpClient.ts       # Instancia configurada de Axios
     ├── projectService.ts   # Peticiones CRUD para proyectos
     └── taskService.ts      # Peticiones CRUD para tareas
+    .env.example            # Plantilla de variables de entorno para el proyecto
 ```
 
 
@@ -106,7 +107,16 @@ El frontend está diseñado respetando estrictamente el contrato de la API (Swag
 | `DELETE` | `/tasks/{taskId}`             | Elimina una tarea específica.                                  |
 
 
-*(Nota: Adicional a estos métodos, según el contrato original, la API incluye* `PATCH /tasks/{id}/status` *para actualizar de manera independiente solo el estado de la tarea).*
+
+### Configuración de Variables de Entorno
+
+El proyecto incluye un archivo .env.example que sirve como plantilla de referencia para la configuración local.
+
+Seguridad: Los archivos .env (que pueden almacenar credenciales de APIs) nunca deben subirse al repositorio de código (GitHub).
+
+Uso: Al clonar el proyecto, debes duplicar este archivo .env.example, renombrar la copia como .env (o .env.local), y asegurarte de que los valores sean los correctos para tu entorno.
+
+VITE_API_URL: Esta variable define la dirección del servidor al que React hará las peticiones. El prefijo VITE_ es obligatorio, ya que permite que el empaquetador Vite haga que esta variable esté disponible de manera pública en el código del frontend.
 
 ## Instalación y Uso
 
